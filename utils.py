@@ -1,8 +1,11 @@
 import re
+import os
 
 from prettytable import PrettyTable
 
+LOCAL_PATH = os.path.dirname(os.path.abspath(__file__))
 PATTERN = re.compile(r'\d+')
+PATTERN_FILENAME = re.compile(r'\w+')
 
 
 def read_from_file(filename: str) -> list[str]:
@@ -52,6 +55,11 @@ def print_records(records: list[str]) -> None:
     print(mytable)
 
 
+def get_records(filename: str) -> None:
+    data = read_from_file(filename)
+    print_records(data)
+
+
 def search_record(msg: str, index: int, filename: str) -> list[str]:
     obj = input(msg)
     records = read_from_file(filename)
@@ -94,12 +102,23 @@ def get_number_record(msg: str) -> int:
             print('Ошибка ввода. Попробуйте еще раз')
 
 
+def get_filename(msg: str) -> str:
+    filename = input(msg)
+    while True:
+        try:
+            if PATTERN_FILENAME.match(filename):
+                return filename + '.txt'
+            else:
+                raise ValueError
+        except ValueError:
+            print('Ошибка ввода. Попробуйте еще раз')
+
+
 def patch_record(filename: str) -> None:
     records = read_from_file(filename)
     print_records(records)
     index = get_number_record('Введите номер редактируемой записи: ')
     old_record = records[index-1]
-    # new_record = create_record()
     new_record = ' '.join(create_record()) + '\n'
     with open(filename, 'r', encoding='utf-8') as file:
         lines = [new_record if line.rstrip(
@@ -107,6 +126,18 @@ def patch_record(filename: str) -> None:
     with open(filename, 'w', encoding='utf-8') as file:
         file.writelines(lines)
     print('запись изменена')
+
+
+def copy_record(filename: str) -> None:
+    records = read_from_file(filename)
+    print_records(records)
+    index = get_number_record('Введите номер копируемой записи: ')
+    print(records[index-1])
+    new_filename = LOCAL_PATH + '\\tables\\' + \
+        get_filename('Введите имя файла без расширения: ')
+    with open(new_filename, 'w', encoding='utf-8') as file:
+        file.writelines(records[index-1] + '\n')
+    print('файл записань изменена')
 
 
 def find_actions(filename: str) -> None:

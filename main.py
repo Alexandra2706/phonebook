@@ -1,6 +1,6 @@
 import os
 
-from utils import delete_record, find_actions, patch_record, print_records, read_from_file, write_to_file
+from utils import copy_record, delete_record, get_records, find_actions, patch_record, write_to_file
 
 LOCAL_FILENAME = '\\tables\phone.txt'
 LOCAL_PATH = os.path.dirname(os.path.abspath(__file__)) + LOCAL_FILENAME
@@ -13,13 +13,13 @@ def actions(filename: str) -> None:
     print('3 - изменить данные абонента')
     print('4 - найти абонента')
     print('5 - удалить данные абонента')
+    print('6 - скопирвать строку в файл')
     print('0 - выход из программы')
     print()
     while True:
         cmd = input('Введите пункт меню >>> ')
         if cmd == '1':
-            data = read_from_file(filename)
-            print_records(data)
+            get_records(filename)
         elif cmd == '2':
             write_to_file(filename)
         elif cmd == '3':
@@ -28,6 +28,8 @@ def actions(filename: str) -> None:
             find_actions(filename)
         elif cmd == '5':
             delete_record(filename)
+        elif cmd == '6':
+            copy_record(filename)
         elif cmd == '0':
             exit(0)
         else:
