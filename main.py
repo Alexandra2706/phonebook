@@ -1,13 +1,9 @@
 import os
 
-from utils import delete_record, find_actions, print_records, read_from_file, write_to_file
+from utils import delete_record, find_actions, patch_record, print_records, read_from_file, write_to_file
 
 LOCAL_FILENAME = '\\tables\phone.txt'
 LOCAL_PATH = os.path.dirname(os.path.abspath(__file__)) + LOCAL_FILENAME
-
-
-def patch_record():
-    pass
 
 
 def actions(filename: str) -> None:
@@ -27,7 +23,7 @@ def actions(filename: str) -> None:
         elif cmd == '2':
             write_to_file(filename)
         elif cmd == '3':
-            patch_record()
+            patch_record(filename)
         elif cmd == '4':
             find_actions(filename)
         elif cmd == '5':

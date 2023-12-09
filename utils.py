@@ -70,12 +70,11 @@ def print_results(result: list[str]) -> None:
         print_records(result)
 
 
-def delete_record(filename: str):
-    surname = input('Введите фамилию: ')
+def delete_record(filename: str) -> None:
+    surname = input('Введите фамилию и имя: ')
     pattern = re.compile(re.escape(surname))
     with open(filename, 'r+', encoding='utf-8') as file:
         records = file.readlines()
-        print(records)
         file.seek(0)
         for record in records:
             result = pattern.search(record)
@@ -84,6 +83,30 @@ def delete_record(filename: str):
             else:
                 print('Запись удалена')
             file.truncate()
+
+
+def get_number_record(msg: str) -> int:
+    while True:
+        try:
+            record_number = int(input(msg))
+            return record_number
+        except ValueError:
+            print('Ошибка ввода. Попробуйте еще раз')
+
+
+def patch_record(filename: str) -> None:
+    records = read_from_file(filename)
+    print_records(records)
+    index = get_number_record('Введите номер редактируемой записи: ')
+    old_record = records[index-1]
+    # new_record = create_record()
+    new_record = ' '.join(create_record()) + '\n'
+    with open(filename, 'r', encoding='utf-8') as file:
+        lines = [new_record if line.rstrip(
+        ) == old_record else line for line in file]
+    with open(filename, 'w', encoding='utf-8') as file:
+        file.writelines(lines)
+    print('запись изменена')
 
 
 def find_actions(filename: str) -> None:
