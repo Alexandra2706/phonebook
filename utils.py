@@ -120,7 +120,7 @@ def patch_record(filename: str) -> None:
     records = read_from_file(filename)
     print_records(records)
     index = get_number_record('Введите номер редактируемой записи: ')
-    old_record = records[index-1]
+    old_record = records[index - 1]
     new_record = ' '.join(create_record()) + '\n'
     with open(filename, 'r', encoding='utf-8') as file:
         lines = [new_record if line.rstrip(
@@ -134,11 +134,11 @@ def copy_record(filename: str) -> None:
     records = read_from_file(filename)
     print_records(records)
     index = get_number_record('Введите номер копируемой записи: ')
-    print(records[index-1])
+    print(records[index - 1])
     new_filename = LOCAL_PATH + '\\tables\\' + \
         get_filename('Введите имя файла без расширения: ')
     with open(new_filename, 'w', encoding='utf-8') as file:
-        file.writelines(records[index-1] + '\n')
+        file.writelines(records[index - 1] + '\n')
     print('запись скопирована')
 
 
@@ -152,10 +152,10 @@ def find_actions(filename: str) -> None:
     while True:
         cmd = input('Выберите критерии поиска / выход - 0 >>> ')
         if cmd == '1':
-            result = search_record('введите фамилию: ', int(cmd)-1, filename)
+            result = search_record('введите фамилию: ', int(cmd) - 1, filename)
             print_results(result)
         elif cmd == '2':
-            result = search_record('введите имя: ', int(cmd)-1, filename)
+            result = search_record('введите имя: ', int(cmd) - 1, filename)
             print_results(result)
         elif cmd == '3':
             result = search_record(

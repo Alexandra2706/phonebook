@@ -1,6 +1,7 @@
 import os
 
-from utils import copy_record, delete_record, get_records, find_actions, patch_record, write_to_file
+from utils import (copy_record, delete_record, get_records, find_actions,
+                   patch_record, write_to_file)
 
 LOCAL_FILENAME = '\\tables\phone.txt'
 LOCAL_PATH = os.path.dirname(os.path.abspath(__file__)) + LOCAL_FILENAME
