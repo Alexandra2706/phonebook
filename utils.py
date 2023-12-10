@@ -165,4 +165,4 @@ def find_actions(filename: str) -> None:
             print('Вы вернулись в главное меню >>>')
             return
         else:
-            print("Вы ввели не правильное значение")
+            print("Вы ввели неправильное значение")

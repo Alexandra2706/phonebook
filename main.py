@@ -36,7 +36,7 @@ def actions(filename: str) -> None:
         elif cmd == '0':
             exit(0)
         else:
-            print("Вы ввели не правильное значение")
+            print("Вы ввели неправильное значение")
 
 
 if __name__ == '__main__':
