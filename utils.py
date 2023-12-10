@@ -79,7 +79,7 @@ def print_results(result: list[str]) -> None:
 
 
 def delete_record(filename: str) -> None:
-    surname = input('Введите фамилию и имя: ')
+    surname = input('Введите фамилию: ')
     pattern = re.compile(re.escape(surname))
     with open(filename, 'r+', encoding='utf-8') as file:
         records = file.readlines()
@@ -89,7 +89,9 @@ def delete_record(filename: str) -> None:
             if result is None:
                 file.write(record)
             else:
-                print('Запись удалена')
+                print(record.rstrip('\n'))
+                answer = input('Удалить запись (y/n)? ')
+                print('Запись удалена') if answer == 'y' else file.write(record)
             file.truncate()
 
 
@@ -137,18 +139,18 @@ def copy_record(filename: str) -> None:
         get_filename('Введите имя файла без расширения: ')
     with open(new_filename, 'w', encoding='utf-8') as file:
         file.writelines(records[index-1] + '\n')
-    print('файл записань изменена')
+    print('запись скопирована')
 
 
 def find_actions(filename: str) -> None:
-    print('Выберите критерии поиска: ')
-    print('1 - поиск по фамилии')
-    print('2 - поиск по имени')
-    print('3 - поиск по номеру телефона')
-    print('0 - возвращение в главное меню')
-    print()
+    print('Rритерии поиска: \n'
+          '1 - поиск по фамилии \n'
+          '2 - поиск по имени \n'
+          '3 - поиск по номеру телефона \n'
+          '0 - возвращение в главное меню \n'
+          )
     while True:
-        cmd = input('Введите вариант поиска >>> ')
+        cmd = input('Выберите критерии поиска / выход - 0 >>> ')
         if cmd == '1':
             result = search_record('введите фамилию: ', int(cmd)-1, filename)
             print_results(result)
